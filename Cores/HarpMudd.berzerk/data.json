@@ -1,0 +1,15 @@
+{
+    "data": {
+        "magic": "APF_VER_1",
+        "data_slots": [
+            {
+                "name": "Berzerk (Stern, 1980) ROM",
+                "id": 1,
+                "required": true,
+                "parameters": "0x108",
+                "filename": "berzerk.rom",
+                "address": "0x00000000"
+            }
+        ]
+    }
+}
