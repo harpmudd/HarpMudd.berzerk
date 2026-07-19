@@ -75,6 +75,10 @@ SD card). Note the parent set needs the **rc31a** revision of `rom5.5c`
 - **S14001A speech emulation:** Jonathan Gevaryahu, R. Belmont (via MAME)
 - **MiSTer integration:** MiSTer-devel project
 - **Analogue Pocket port:** HarpMudd
+- **Z80 CPU core (T80):** Daniel Wallner, with later work by MikeJ, Sean Riddle, TobiFlex and Sorgelig
+- **SDRAM controller, data loader, I2S audio, sync FIFO:** Adam Gastineau (agg23)
+- **openFPGA framework (APF), bridge command handler, reference `core_top`:** Analogue
+- **PLL and other megafunctions:** Intel/Altera (Quartus-generated)
 
 ## About / Support
 
