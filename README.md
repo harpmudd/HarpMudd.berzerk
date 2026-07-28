@@ -1,7 +1,7 @@
 # Berzerk (Stern, 1980) — Analogue Pocket
 
-An Analogue Pocket port of **Berzerk** (Stern, 1980) by **HarpMudd**, built on
-the openFPGA framework.
+An Analogue Pocket port of **Berzerk** (Stern, 1980), built on the openFPGA
+framework.
 
 ## The Game
 
