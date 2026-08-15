@@ -92,6 +92,6 @@ SD card). Note the parent set needs the **rc31a** revision of `rom5.5c`
 
 I'm into retro games and the Analogue Pocket, always cooking up something new.
 I love being part of a community built on sharing and the love of games — so if
-any of my projects bring you joy, grab me a coffee; it fuels the next thing.
+any of my projects bring you joy, chip in below; it fuels the next thing.
 
-☕ **[buymeacoffee.com/harpmudd](https://buymeacoffee.com/harpmudd)**
+💛 **[Support this project via PayPal](https://www.paypal.com/donate/?hosted_button_id=S22WV924XU2ME)**
