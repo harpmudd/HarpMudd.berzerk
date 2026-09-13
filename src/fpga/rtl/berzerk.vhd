@@ -164,6 +164,9 @@ signal cpu_di_io : std_logic_vector(7 downto 0);
 signal prog2_rom_addr : std_logic_vector(15 downto 0);
 signal prog1_do    : std_logic_vector(7 downto 0);
 signal prog2_do    : std_logic_vector(7 downto 0);
+signal romc_do     : std_logic_vector(7 downto 0);   -- Frenzy c000-cfff
+signal berzerk_di  : std_logic_vector(7 downto 0);
+signal frenzy_di   : std_logic_vector(7 downto 0);
 signal mosram_do   : std_logic_vector(7 downto 0);
 signal mosram_we   : std_logic;
 signal vram_addr   : std_logic_vector(12 downto 0);
@@ -221,6 +224,8 @@ signal speech_busy : std_logic;
 signal prog_rom_1_cs: std_logic;
 signal prog_rom_2_cs: std_logic;
 signal spch_rom_1_cs: std_logic;
+signal romc_cs      : std_logic;
+signal is_frenzy    : std_logic := '0';
 
 COMPONENT video_gen_verilog 
 port(
@@ -250,9 +255,36 @@ begin
 --berzerk_r_vo_2c.2c	2048	22528			0101 1000 00000000
 
 
-prog_rom_2_cs <= '1' when dn_addr(14) = '0'     else '0';
-prog_rom_1_cs <= '1' when dn_addr(14 downto 11) = "1000"     else '0';
-spch_rom_1_cs <= '1' when dn_addr(14 downto 12) = "101"     else '0';
+-- Berzerk and Frenzy run the same board; only the CPU memory map differs, so
+-- one bitstream covers both and the loader sorts the image out here.
+--
+-- Bit 15 matters: prog_rom_2_cs used to be dn_addr(14)='0', which also matches
+-- 0x8000-0xBFFF. Nothing was ever loaded there under Berzerk, but Frenzy keeps
+-- its speech at 0x8000 and it aliased back over the program.
+prog_rom_2_cs <= '1' when dn_addr(15 downto 14) = "00"    else '0';
+prog_rom_1_cs <= '1' when dn_addr(15 downto 11) = "01000" else '0';
+
+-- Frenzy's c000-cfff ROM, from image 0x4000-0x4FFF. That overlaps prog_rom_1;
+-- both fill on a load and the CPU-side mux reads whichever the game needs, so
+-- the loader never has to know which game this is.
+romc_cs       <= '1' when dn_addr(15 downto 12) = "0100"  else '0';
+
+-- Speech lives at 0x5000 in a Berzerk image and 0x8000 in a Frenzy one. Same
+-- two parts either way.
+spch_rom_1_cs <= '1' when dn_addr(15 downto 12) = "0101"
+                       or dn_addr(15 downto 12) = "1000"  else '0';
+
+-- Which game, taken from how far the image reaches. Only Frenzy's is big
+-- enough to write at 0x8000, and that settles well before the CPU starts.
+process (clk_sys)
+begin
+	if rising_edge(clk_sys) then
+		if dn_wr = '1' then
+			if dn_addr = x"0000"  then is_frenzy <= '0'; end if;
+			if dn_addr(15)  = '1' then is_frenzy <= '1'; end if;
+		end if;
+	end if;
+end process;
 
 
 audio_out <= ("00"&speech_out&"00")+('0'&sound_out&"000");
@@ -316,7 +348,10 @@ system  <= not(coin1 & "00000" & start2 & start1 );
 -- cpu write addressing
 -- cpu I/O chips select
 -----------------------
-mosram_we <= '1' when cpu_mreq_n = '0' and cpu_wr_n = '0' and cpu_addr(15 downto 10) = "000010" else '0'; -- 0800-0bff
+-- Berzerk keeps its 1K of NVRAM at 0800-0bff, Frenzy at f800-fbff.
+mosram_we <= '1' when cpu_mreq_n = '0' and cpu_wr_n = '0' and
+             ((is_frenzy = '0' and cpu_addr(15 downto 10) = "000010") or
+              (is_frenzy = '1' and cpu_addr(15 downto 10) = "111110")) else '0';
 vram_we   <= '1' when cpu_mreq_n = '0' and cpu_wr_n = '0' and cpu_addr(15 downto 14) = "01"    and cpu_clock = '0' else '0'; -- 4000-5fff mirror 6000-7fff 
 cram_we   <= '1' when cpu_mreq_n = '0' and cpu_wr_n = '0' and cpu_addr(15 downto 11) = "10000" and cpu_clock = '0' else '0'; -- 8000-87ff 
 
@@ -391,8 +426,21 @@ end process;
 -- mux cpu data mem read and io read
 ------------------------------------
 -- memory mux
-with cpu_addr(15 downto 11) select 
-	cpu_di_mem <=
+--
+-- The one place the two games differ. Frenzy is the same board with a
+-- different map: no RAM hole in the program, an extra ROM at c000, and the
+-- NVRAM moved to f800.
+--
+--              Berzerk              Frenzy
+--   0000-07ff  ROM (prog1, 2K)     ROM
+--   0800-0fff  NVRAM               ROM        program is one 16K run
+--   1000-3fff  ROM (prog2)         ROM
+--   4000-7fff  video RAM           video RAM
+--   8000-87ff  colour RAM          colour RAM
+--   c000-cfff  -                   ROM (romc, 4K)
+--   f800-fbff  -                   NVRAM
+with cpu_addr(15 downto 11) select
+	berzerk_di <=
 		prog1_do  when "00000", -- 0000-07ff
 		mosram_do when "00001", -- 0800-0fff
 		prog2_do  when "00010", -- 1000-17ff
@@ -411,6 +459,32 @@ with cpu_addr(15 downto 11) select
 		vram_do   when "01111", -- 7800-7fff		
 		cram_do   when "10000", -- 8000-87ff 
 		x"FF"        when others;
+
+with cpu_addr(15 downto 11) select
+	frenzy_di <=
+		prog2_do  when "00000", -- 0000-07ff
+		prog2_do  when "00001", -- 0800-0fff  (NVRAM on Berzerk)
+		prog2_do  when "00010", -- 1000-17ff
+		prog2_do  when "00011", -- 1800-1fff
+		prog2_do  when "00100", -- 2000-27ff
+		prog2_do  when "00101", -- 2800-2fff
+		prog2_do  when "00110", -- 3000-37ff
+		prog2_do  when "00111", -- 3800-3fff
+		vram_do   when "01000", -- 4000-47ff
+		vram_do   when "01001", -- 4800-4fff
+		vram_do   when "01010", -- 5000-57ff
+		vram_do   when "01011", -- 5800-5fff
+		vram_do   when "01100", -- 6000-67ff 
+		vram_do   when "01101", -- 6800-6fff
+		vram_do   when "01110", -- 7000-77ff 
+		vram_do   when "01111", -- 7800-7fff		
+		cram_do   when "10000", -- 8000-87ff 
+		romc_do   when "11000", -- c000-c7ff
+		romc_do   when "11001", -- c800-cfff
+		mosram_do when "11111", -- f800-fbff NVRAM (mirrored to fc00-ffff)
+		x"FF"        when others;
+
+cpu_di_mem <= frenzy_di when is_frenzy = '1' else berzerk_di;
 
 -- I/O-2 mux
 with cpu_addr(2 downto 0) select
@@ -619,7 +693,9 @@ port map
 );
 
 
-prog2_rom_addr <= cpu_addr-X"1000";
+-- Berzerk's program starts at CPU 0x1000; 0x0000-0x07FF is the separate 2K
+-- prog_rom_1. Frenzy runs straight from 0x0000, so no offset.
+prog2_rom_addr <= cpu_addr when is_frenzy = '1' else cpu_addr-X"1000";
 
 --program2 : entity work.berzerk_program2
 --port map (
@@ -641,6 +717,22 @@ port map
 	clock_b   => clock_10n,
 	address_b => prog2_rom_addr(13 downto 0),
 	q_b       => prog2_do
+);
+
+
+-- Frenzy's c000-cfff ROM. Berzerk never reads this range, so it just sits
+-- there costing a 4K block.
+romc : work.dpram generic map (12,8)
+port map
+(
+	clock_a   => clk_sys,
+	wren_a    => dn_wr and romc_cs,
+	address_a => dn_addr(11 downto 0),
+	data_a    => dn_data,
+
+	clock_b   => clock_10n,
+	address_b => cpu_addr(11 downto 0),
+	q_b       => romc_do
 );
 
 

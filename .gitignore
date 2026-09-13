@@ -24,13 +24,10 @@ __pycache__/
 *.pyc
 
 # ── ROMs & extracted ROM data — NEVER commit copyrighted data ─────────────────
-# The Pocket distribution (Cores/Assets/Platforms, possibly under dist/) IS
-# committed: bitstream + JSON/artwork (icon.bin etc.) + per-game instance JSONs.
-# Only ROM images and ROM data extracted into the source are excluded.
+# The Pocket distribution under dist/ IS committed: bitstream, JSON, artwork
+# and the .mra recipes. Only ROM images, and ROM data extracted into source,
+# are excluded.
 *.rom
 *.zip
 *.hex
 *.mif
-
-# ── Local build staging (distribution is tracked at repo root, not dist/) ──
-dist/

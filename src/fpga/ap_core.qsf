@@ -745,7 +745,7 @@ set_global_assignment -name VERILOG_FILE core/sync_fifo.v
 set_global_assignment -name SDC_FILE core/core_constraints.sdc
 set_global_assignment -name QIP_FILE core/mf_pllbase.qip
 set_global_assignment -name SIP_FILE core/mf_pllbase.sip
-# Popeye RTL -- Z80 CPU (T80) + game logic + AY-3-8910 + RAMs
+# Berzerk RTL -- Z80 CPU (T80), game logic, sound FX, S14001A speech, RAMs
 set_global_assignment -name VHDL_FILE rtl/T80/T80_Pack.vhd
 set_global_assignment -name VHDL_FILE rtl/T80/T80_Reg.vhd
 set_global_assignment -name VHDL_FILE rtl/T80/T80_ALU.vhd

@@ -87,8 +87,8 @@ end T80_Reg;
 architecture rtl of T80_Reg is
 
 	type Register_Image is array (natural range <>) of std_logic_vector(7 downto 0);
-	-- Power-up to 0xFF: matches real Z80 reset behavior; boot self-test code
-	-- can trip over Quartus's default-0 SRAM regs (cost a Tapper bring-up cycle).
+	-- Power up to 0xFF, as a real Z80 does. Quartus defaults SRAM regs to 0,
+	-- and boot self-test code can trip over the difference.
 	signal      RegsH   : Register_Image(0 to 7)  := (others => (others => '1'));
 	signal      RegsL   : Register_Image(0 to 7)  := (others => (others => '1'));
 

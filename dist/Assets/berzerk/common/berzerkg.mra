@@ -1,0 +1,24 @@
+<misterromdescription>
+	<name>Berzerk (German Speech, revision RC32)</name>
+	<setname>berzerkg</setname>
+	<year>1980</year>
+	<manufacturer>Stern Electronics</manufacturer>
+	<!--
+	  HarpMudd Berzerk - Analogue Pocket core ROM recipe (no copyrighted data).
+	  Build:  mra berzerkg.mra   then copy the .rom into Assets/berzerk/common/.
+	-->
+	<rom index="0" zip="berzerk.zip|berzerkg.zip" md5="none">
+		<part crc="19bb3aac" name="berzerk_rc32_1d.rom1.1d"></part>
+		<part crc="b0888ff7" name="berzerk_rc32g_3d.rom2.3d"></part>
+		<part crc="e23239a9" name="berzerk_rc32_5d.rom3.5d"></part>
+		<part crc="651b31b7" name="berzerk_rc32g_6d.rom4.6d"></part>
+		<part crc="8a403bba" name="berzerk_rc32g_5c.rom5.5c"></part>
+		<part crc="8a403bba" name="berzerk_rc32g_5c.rom5.5c"></part>
+		<part crc="8a403bba" name="berzerk_rc32g_5c.rom5.5c"></part>
+		<part crc="8a403bba" name="berzerk_rc32g_5c.rom5.5c"></part>
+		<part crc="77923a9e" name="berzerk_rc32_1c.rom0.1c"></part>
+		<part crc="77923a9e" name="berzerk_rc32_1c.rom0.1c"></part>
+		<part crc="fc1da15f" name="berzerk_rvog_1c.1c"></part>
+		<part crc="7f6808fb" name="berzerk_rvog_2c.2c"></part>
+	</rom>
+</misterromdescription>

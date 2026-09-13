@@ -24,6 +24,8 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BITSTREAM_SRC = os.path.join(PROJECT_ROOT, "src", "fpga", "output_files", "ap_core.rbf")
 DIST_CORE     = os.path.join(PROJECT_ROOT, "dist", "Cores", "HarpMudd.berzerk")
 BITSTREAM_DST = os.path.join(DIST_CORE, "bitstream.rbf_r")
+# Parent set only. The other six are built on demand with pack_rom.py or a
+# .mra recipe; packaging just makes sure there is something to boot with.
 ROM_DST       = os.path.join(PROJECT_ROOT, "dist", "Assets", "berzerk", "common", "berzerk.rom")
 PACK_ROM_PY   = os.path.join(PROJECT_ROOT, "pack_rom.py")
 README_PATH   = os.path.join(PROJECT_ROOT, "README.md")
@@ -96,6 +98,8 @@ def main():
             if result.returncode != 0:
                 print("\nROM build failed. Package incomplete.")
                 print("Provide a complete MAME romset and re-run.")
+                print("Other sets: python pack_rom.py "
+                      "<berzerka|berzerkb|berzerkf|berzerkg|berzerks|frenzy>")
                 sys.exit(1)
 
     # 3. Summary

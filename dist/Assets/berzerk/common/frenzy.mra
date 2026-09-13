@@ -1,0 +1,22 @@
+<misterromdescription>
+	<name>Frenzy (revision RA1)</name>
+	<setname>frenzy</setname>
+	<year>1982</year>
+	<manufacturer>Stern Electronics</manufacturer>
+	<!--
+	  HarpMudd Berzerk - Analogue Pocket core ROM recipe (no copyrighted data).
+	  Build:  mra frenzy.mra   then copy the .rom into Assets/berzerk/common/.
+	-->
+	<rom index="0" zip="frenzy.zip" md5="none">
+		<part crc="abdd25b8" name="frenzy_ra1_rom1.1d"></part>
+		<part crc="536e4ae8" name="frenzy_ra1_rom2.3d"></part>
+		<part crc="3eb9bc9b" name="frenzy_ra1_rom3.5d"></part>
+		<part crc="e1d3133c" name="frenzy_ra1_rom4.6d"></part>
+		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
+		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
+		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
+		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
+		<part crc="2cfe825d" name="berzerk_r_vo_1c.1c"></part>
+		<part crc="d2b6324e" name="berzerk_r_vo_2c.2c"></part>
+	</rom>
+</misterromdescription>
