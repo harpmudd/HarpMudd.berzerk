@@ -141,8 +141,8 @@ FRENZY_ROM_DEFS = [
     (0x5581a7b1, 0x1000, "frenzy_ra1_rom5.5c  (copy 2)", 0x5000, None),
     (0x5581a7b1, 0x1000, "frenzy_ra1_rom5.5c  (copy 3)", 0x6000, None),
     (0x5581a7b1, 0x1000, "frenzy_ra1_rom5.5c  (copy 4)", 0x7000, None),
-    (0x2cfe825d, 0x800, "berzerk_r_vo_1c.1c", 0x8000, None),
-    (0xd2b6324e, 0x800, "berzerk_r_vo_2c.2c", 0x8800, None),
+    (0x2cfe825d, 0x800, "e169-1cvo.1c", 0x8000, None),
+    (0xd2b6324e, 0x800, "e169-2cvo.2c", 0x8800, None),
 ]
 
 # Frenzy is the SAME BOARD with a different memory map -- MAME's frenzy() is
@@ -156,9 +156,9 @@ GAMES = {
     "berzerk":  (BERZERK_ROM_DEFS,  "berzerk.rom",  "Berzerk (revision RC31A)",       ROM_IMAGE_SIZE),
     "berzerka": (BERZERKA_ROM_DEFS, "berzerka.rom", "Berzerk (revision RC31)",        ROM_IMAGE_SIZE),
     "berzerkb": (BERZERKB_ROM_DEFS, "berzerkb.rom", "Berzerk (revision RC28)",        ROM_IMAGE_SIZE),
-    "berzerkf": (BERZERKF_ROM_DEFS, "berzerkf.rom", "Berzerk (French Speech, RC31)",  ROM_IMAGE_SIZE),
-    "berzerkg": (BERZERKG_ROM_DEFS, "berzerkg.rom", "Berzerk (German Speech, RC32)",  ROM_IMAGE_SIZE),
-    "berzerks": (BERZERKS_ROM_DEFS, "berzerks.rom", "Berzerk (Spanish Speech, RC32)", ROM_IMAGE_SIZE),
+    "berzerkf": (BERZERKF_ROM_DEFS, "berzerkf.rom", "Berzerk (French Speech, revision RC31)",  ROM_IMAGE_SIZE),
+    "berzerkg": (BERZERKG_ROM_DEFS, "berzerkg.rom", "Berzerk (German Speech, revision RC32)",  ROM_IMAGE_SIZE),
+    "berzerks": (BERZERKS_ROM_DEFS, "berzerks.rom", "Berzerk (Spanish Speech, revision RC32)", ROM_IMAGE_SIZE),
     "frenzy":   (FRENZY_ROM_DEFS,   "frenzy.rom",   "Frenzy (revision RA1)",          FRENZY_IMAGE_SIZE),
 }
 

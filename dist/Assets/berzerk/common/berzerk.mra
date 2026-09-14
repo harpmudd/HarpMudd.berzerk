@@ -1,8 +1,8 @@
 <misterromdescription>
-	<name>Berzerk</name>
+	<name>Berzerk (revision RC31A)</name>
 	<setname>berzerk</setname>
 	<year>1980</year>
-	<manufacturer>Stern</manufacturer>
+	<manufacturer>Stern Electronics</manufacturer>
 	<!--
 	  HarpMudd Berzerk - Analogue Pocket core ROM recipe (no copyrighted data).
 	  Build:  mra berzerk.mra   then copy the .rom into Assets/berzerk/common/.

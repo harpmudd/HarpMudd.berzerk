@@ -16,7 +16,7 @@
 		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
 		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
 		<part crc="5581a7b1" name="frenzy_ra1_rom5.5c"></part>
-		<part crc="2cfe825d" name="berzerk_r_vo_1c.1c"></part>
-		<part crc="d2b6324e" name="berzerk_r_vo_2c.2c"></part>
+		<part crc="2cfe825d" name="e169-1cvo.1c"></part>
+		<part crc="d2b6324e" name="e169-2cvo.2c"></part>
 	</rom>
 </misterromdescription>

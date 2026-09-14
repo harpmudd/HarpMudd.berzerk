@@ -62,17 +62,18 @@ as a d-pad. Its actual d-pad still works.
 
 ## Versions
 
-Seven sets run off the one core, picked from the ROM slot:
+Seven sets run off the one core. Each has its own entry in the core's game
+list:
 
-| Set | |
-|---|---|
-| `berzerk` | Revision RC31A |
-| `berzerka` | Revision RC31 |
-| `berzerkb` | Revision RC28 |
-| `berzerkf` | French speech |
-| `berzerkg` | German speech |
-| `berzerks` | Spanish speech |
-| `frenzy` | Frenzy (RA1) |
+| Menu entry | Set | |
+|---|---|---|
+| Berzerk | `berzerk` | Revision RC31A |
+| Berzerk (RC31) | `berzerka` | Revision RC31 |
+| Berzerk (RC28) | `berzerkb` | Revision RC28 |
+| Berzerk (French) | `berzerkf` | French speech |
+| Berzerk (German) | `berzerkg` | German speech |
+| Berzerk (Spanish) | `berzerks` | Spanish speech |
+| Frenzy | `frenzy` | Frenzy (RA1) |
 
 The three language sets swap the voice ROMs as well as the program, so the
 robots taunt you in French, German or Spanish.
@@ -95,7 +96,8 @@ alongside the clone zip when building them. Frenzy is self-contained. Note the
 parent set wants the **rc31a** revision of `rom5.5c` (CRC `e0fab8f5`).
 
 Keep the `.rom` files in that folder and on your SD card — they land at
-`Assets/berzerk/common/` on the card.
+`Assets/berzerk/common/` on the card. A game only works once its `.rom` is
+there; the menu lists all seven either way.
 
 ## Notes
 

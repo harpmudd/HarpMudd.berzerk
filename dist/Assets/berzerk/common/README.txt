@@ -12,4 +12,4 @@ The five berzerk variants are split clones, so keep the parent berzerk.zip
 alongside the clone zip when building them. Frenzy is self-contained.
 
 Keep the .rom files in this folder and on your Pocket SD card, then pick the
-one you want from the core's ROM slot.
+game from the core's menu.
