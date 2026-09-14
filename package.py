@@ -4,7 +4,7 @@ package.py — Package the compiled Berzerk (Stern, 1980) core for the Analogue 
 Steps:
   1. Verify the bitstream exists in src/fpga/output_files/
   2. Convert .rbf -> .rbf_r (BIT-REVERSED bitstream for Pocket -- mandatory)
-  3. Copy bitstream to dist/Cores/HarpMudd.berzerk/bitstream.rbf_r
+  3. Copy bitstream to dist/Cores/HarpMudd.Berzerk/bitstream.rbf_r
   4. Run pack_rom.py to generate berzerk.rom (if not already present)
   5. Print copy instructions for the Pocket SD card
 
@@ -22,7 +22,7 @@ import subprocess
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BITSTREAM_SRC = os.path.join(PROJECT_ROOT, "src", "fpga", "output_files", "ap_core.rbf")
-DIST_CORE     = os.path.join(PROJECT_ROOT, "dist", "Cores", "HarpMudd.berzerk")
+DIST_CORE     = os.path.join(PROJECT_ROOT, "dist", "Cores", "HarpMudd.Berzerk")
 BITSTREAM_DST = os.path.join(DIST_CORE, "bitstream.rbf_r")
 # Parent set only. The other six are built on demand with pack_rom.py or a
 # .mra recipe; packaging just makes sure there is something to boot with.
